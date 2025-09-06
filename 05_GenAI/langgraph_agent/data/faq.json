@@ -1,0 +1,23 @@
+[
+  {
+    "q": "What is data leakage and how do we avoid it?",
+    "a": "Data leakage occurs when information from the test set or future data influences model training. Avoid it by using pipelines, applying splits before preprocessing, and validating with time-aware CV for time series."
+  },
+  {
+    "q": "How should I evaluate a binary classifier?",
+    "a": "Use ROC-AUC for ranking quality, PR-AUC for imbalanced positives, and a domain-appropriate threshold. Report precision, recall, F1, and a confusion matrix at the chosen threshold."
+  },
+  {
+    "q": "What’s a solid baseline for tabular ML?",
+    "a": "Start with a leakage-free pipeline: imputation + scaling + linear model or tree-based model, evaluate via stratified CV, and perform minimal tuning only after establishing a strong baseline."
+  },
+  {
+    "q": "How do I structure a RAG system?",
+    "a": "Ingest documents with chunking + metadata, embed with a suitable model, store in a vector DB, retrieve top-k with filters, then synthesize with an LLM using citations and guardrails. Evaluate retrieval quality and final answer faithfulness."
+  },
+  {
+    "q": "Which prompt engineering practices are useful?",
+    "a": "Set a clear system role, provide concise context, define constraints, request stepwise reasoning when necessary, and include examples. Test variations and prefer smaller, deterministic prompts for production."
+  }
+]
+

@@ -1,5 +1,6 @@
 langchain
 langgraph
+langchain-openai
 openai
 pandas
 numpy
@@ -11,3 +12,4 @@ jupyter
 ipython
 requests
 python-dotenv
+streamlit
