@@ -1,2 +1,7 @@
 ai-env/
 .env
+node_modules/
+web/client/node_modules/
+web/server/node_modules/
+dist/
+web/client/dist/

@@ -1,0 +1,12 @@
+sku,category,unit_price,on_hand,reorder_point
+SKU-001,Apparel,29.99,12,8
+SKU-002,Apparel,49.99,4,6
+SKU-003,Electronics,199.00,5,3
+SKU-004,Home,15.50,20,10
+SKU-005,Electronics,399.00,2,4
+SKU-006,Home,9.99,50,25
+SKU-007,Grocery,2.99,100,50
+SKU-008,Grocery,4.49,30,20
+SKU-009,Beauty,12.00,15,10
+SKU-010,Beauty,22.00,3,8
+SKU-011,Apparel,59.99,7,6

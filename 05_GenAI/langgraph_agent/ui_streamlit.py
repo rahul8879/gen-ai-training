@@ -7,31 +7,11 @@ import streamlit as st
 from dotenv import load_dotenv, find_dotenv
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 
-try:
-    # When executed as a module inside the package
-    from .agent import build_agent
-except Exception:  # pragma: no cover - fallback for direct script execution
-    # If run via `streamlit run .../ui_streamlit.py`, relative imports may fail.
-    # Add the parent folder (05_GenAI) to sys.path so `langgraph_agent` is importable.
-    import sys
-    from pathlib import Path
-    pkg_dir = Path(__file__).resolve().parent
-    parent_dir = pkg_dir.parent  # points to 05_GenAI
-    if str(parent_dir) not in sys.path:
-        sys.path.insert(0, str(parent_dir))
-    from langgraph_agent.agent import build_agent
+from .agent import build_agent
 
 
 def init_env():
-    # Load .env from repo root or nearest parent reliably
-    try:
-        path = find_dotenv()
-        if not path:
-            raise RuntimeError(".env not found via find_dotenv")
-        load_dotenv(path, override=False)
-    except Exception:
-        # Fallback to repo-root relative
-        load_dotenv('.env', override=False)
+    load_dotenv(find_dotenv(), override=False)
     return os.getenv("OPENAI_API_KEY"), os.getenv("LLM_MODEL", "gpt-4o-mini")
 
 
