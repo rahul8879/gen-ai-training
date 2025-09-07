@@ -21,13 +21,7 @@ except Exception:
 
 
 def init_env():
-    try:
-        path = find_dotenv()
-        if not path:
-            raise RuntimeError(".env not found via find_dotenv")
-        load_dotenv(path, override=False)
-    except Exception:
-        load_dotenv('.env', override=False)
+    load_dotenv(find_dotenv(), override=False)
     return os.getenv("OPENAI_API_KEY"), os.getenv("LLM_MODEL", "gpt-4o-mini")
 
 
@@ -37,6 +31,9 @@ def main():
     st.caption("Sales, inventory, and pricing tools with agentic planning")
 
     api_key, default_model = init_env()
+    print(f"Using model: {default_model}")
+    print(f"API key set: {'yes' if api_key else 'no'}")
+    print('api value',api_key)
 
     with st.sidebar:
         st.header("Settings")
@@ -48,11 +45,29 @@ def main():
             st.session_state.clear()
             st.session_state["model"] = model
             st.session_state["temperature"] = temperature
+            # Correct API: rerun the app after changing settings
             st.experimental_rerun()
 
         st.markdown("---")
         st.caption("Env Info")
         st.code(f"MODEL={model}\nTEMP={temperature}\nAPI_KEY={'set' if api_key else 'missing'}")
+
+    # Validate env (avoid non-ASCII in headers causing httpx errors)
+    def _is_ascii(s: str) -> bool:
+        try:
+            s.encode("ascii")
+            return True
+        except Exception:
+            return False
+
+    if api_key and not _is_ascii(api_key):
+        st.error("OPENAI_API_KEY contains non-ASCII characters. Please re-copy a plain ASCII key into .env.")
+        return
+    for var in ("OPENAI_ORGANIZATION", "OPENAI_PROJECT"):
+        val = os.getenv(var)
+        if val and not _is_ascii(val):
+            st.error(f"{var} contains non-ASCII characters. Remove or replace with plain ASCII.")
+            return
 
     # Init agent and history
     if "app" not in st.session_state:
@@ -85,4 +100,3 @@ def main():
 
 if __name__ == "__main__":  # pragma: no cover
     main()
-

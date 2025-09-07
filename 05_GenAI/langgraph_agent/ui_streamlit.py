@@ -7,7 +7,7 @@ import streamlit as st
 from dotenv import load_dotenv, find_dotenv
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, BaseMessage
 
-from .agent import build_agent
+from agent import build_agent
 
 
 def init_env():
