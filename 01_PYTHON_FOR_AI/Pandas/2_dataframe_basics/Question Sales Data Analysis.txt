@@ -1,0 +1,92 @@
+Question: Sales Data Analysis:
+Imagine you have sales data for a store in the form of a list of dictionaries, where each dictionary contains the sales amount and date. Write a program to calculate the total sales for each month of a given year.
+
+Question: Social Media Feed Analysis:
+Given a list of posts with timestamps, implement a program that displays the most recent posts in a user's social media feed. Use a loop to iterate through the posts and display the relevant ones.
+
+Question: Weather Data Analysis:
+You have collected weather data for a week, including temperature and precipitation. Write a program using loops to calculate and display the average temperature and total precipitation for the week.
+
+
+
+Sales Data Analysis:
+
+def calculate_monthly_sales(sales_data, year):
+    monthly_sales = {}
+    for entry in sales_data:
+        date_parts = entry['date'].split('-')
+        if len(date_parts) == 3:
+            _, month, entry_year = date_parts
+            if int(entry_year) == year:
+                if month in monthly_sales:
+                    monthly_sales[month] += entry['sales']
+                else:
+                    monthly_sales[month] = entry['sales']
+    return monthly_sales
+
+# Example sales data
+sales_data = [
+    {'date': '2023-01-15', 'sales': 1000},
+    {'date': '2023-02-20', 'sales': 1500},
+    {'date': '2022-12-05', 'sales': 800},
+    # Add more sales entries here
+]
+
+year = 2023
+monthly_sales = calculate_monthly_sales(sales_data, year)
+
+print(f"Monthly Sales for {year}:")
+for month, sales in monthly_sales.items():
+    print(f"{month}: ${sales}")
+
+
+
+Social Media Feed Analysis:
+
+def display_recent_posts(posts, user, num_posts):
+    recent_posts = []
+    for post in reversed(posts):
+        if post['user'] == user:
+            recent_posts.append(post)
+            if len(recent_posts) == num_posts:
+                break
+    print(f"Recent posts for {user}:")
+    for post in recent_posts:
+        print(f"{post['timestamp']} - {post['content']}")
+
+# Example social media posts
+posts = [
+    {'user': 'Alice', 'timestamp': '2023-08-10 12:00 PM', 'content': 'Enjoying a sunny day!'},
+    {'user': 'Bob', 'timestamp': '2023-08-10 11:30 AM', 'content': 'Trying out a new recipe.'},
+    {'user': 'Alice', 'timestamp': '2023-08-09 03:45 PM', 'content': 'Exploring new hiking trails.'},
+    # Add more posts here
+]
+
+user = 'Alice'
+num_posts = 2
+display_recent_posts(posts, user, num_posts)
+
+
+Weather Data Analysis:
+
+def calculate_weather_metrics(weather_data):
+    total_temperature = 0
+    total_precipitation = 0
+    for day in weather_data:
+        total_temperature += day['temperature']
+        total_precipitation += day['precipitation']
+    average_temperature = total_temperature / len(weather_data)
+    return average_temperature, total_precipitation
+
+# Example weather data
+weather_data = [
+    {'temperature': 75, 'precipitation': 0.1},
+    {'temperature': 80, 'precipitation': 0.0},
+    {'temperature': 72, 'precipitation': 0.2},
+    # Add more days of data here
+]
+
+average_temperature, total_precipitation = calculate_weather_metrics(weather_data)
+
+print(f"Average Temperature: {average_temperature}°F")
+print(f"Total Precipitation: {total_precipitation} inches")
