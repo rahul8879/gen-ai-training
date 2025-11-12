@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 
 # load the model
-with open('knn_model.pkl', 'rb') as f:
+with open('knn_model_k_7.pkl', 'rb') as f:
     knn = pickle.load(f)
 
 st.title("KNN Classifier Web App")
